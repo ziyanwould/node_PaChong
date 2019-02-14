@@ -34,6 +34,8 @@ run(function*() {
     console.log('run_summary:', summary);
 })
 
+//箭头函数返回一个值，对象等
+
 const arrow = param => ({ param: 'param ' });
 
 console.log('arrow:', arrow().param);

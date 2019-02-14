@@ -1,0 +1,18 @@
+{
+  "name": "ziyanwould",
+  "version": "1.0.0",
+  "description": "爬虫及ES7等的运用",
+  "main": "爬HTML.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "紫烟would",
+  "license": "ISC",
+  "dependencies": {
+    "node-fetch": "^2.3.0",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "co": "^4.6.0"
+  }
+}

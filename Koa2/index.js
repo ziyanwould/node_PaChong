@@ -14,7 +14,8 @@ const { connect, initSchemas } = require('../server/datadbs/init');
 
     // console.log('movies', movies)
 
-    require('../server/tasks/moves.js')
+    //require('../server/tasks/moves.js')初步获取数据
+    require('../server/tasks/api')
 })()
 const app = new Koa()
 app.use(async(ctx, next) => {

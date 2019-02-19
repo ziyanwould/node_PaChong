@@ -42,12 +42,12 @@ const userSchema = new Schema({
 
     })
     //建立一个虚拟的值看是否账号锁定 且不存在数据库
-userSchema.virtual('isLocked').get(() => {
+userSchema.virtual('isLocked').get(function(){
     return !!(this.lockUntil && lockUntil > Date.now()) //对齐取反 判断账号是否被锁定 锁定时间是否超过指定时间 返回布尔值
 })
 
 //对密码加密(加盐)
-userSchema.pre('save', next => {
+userSchema.pre('save',function (next) {
     if (!this.isModified('password')) return next() //密码没有修改 返回
     bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
         if (err) {
@@ -65,7 +65,7 @@ userSchema.pre('save', next => {
     next()
 })
 
-userSchema.pre('save', next => {
+userSchema.pre('save', function(next) {
     if (this.isNew) {
         this.meta.createdAt = this.meta.updatedAt = Date.now()
     } else {

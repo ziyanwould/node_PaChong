@@ -9,10 +9,10 @@ const movieSchema = new Schema({
         unique: true,
         type: String
     },
-    category: {
+    category: [{
         type: ObjectId,
         ref: 'Category' //表的引用关系
-    },
+    }],
     rate: Number, //评分
     title: String,
     summary: String, //简介
@@ -44,7 +44,7 @@ const movieSchema = new Schema({
 
 })
 
-movieSchema.pre('save', function(next) {
+movieSchema.pre('save', function(next) {//中间件不能用箭头函数
     if (this.isNew) {
         this.meta.createdAt = this.meta.updatedAt = Date.now()
     } else {

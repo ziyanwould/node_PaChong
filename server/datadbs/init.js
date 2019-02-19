@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const db = 'mongodb://localhost/douban-test';
+const db = 'mongodb://www.yln212.top/douban-test';
 const glob = require('glob');
 const { resolve } = require('path');
 mongoose.Promise = global.Promise;

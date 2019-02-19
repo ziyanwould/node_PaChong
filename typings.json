@@ -6,6 +6,7 @@
     "node": "registry:dt/node#7.0.0+20170322231424"
   },
   "dependencies": {
+    "bcrypt": "registry:dt/bcrypt#1.0.0+20161217125511",
     "body-parser": "registry:dt/body-parser#1.16.0+20170321201455",
     "connect-mongo": "registry:dt/connect-mongo#0.0.0+20161119044246",
     "cookie-parser": "registry:dt/cookie-parser#1.3.4+20160428043022",

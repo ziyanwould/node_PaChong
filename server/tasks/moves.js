@@ -1,10 +1,11 @@
 const cp = require('child_process'); //子进程
-const {
-    resolve
-} = require('path');
+const { resolve } = require('path');
 const r = path => resolve(__dirname, path);
 
-(async () => {
+const mongoose = require('mongoose'); //存数据
+const Movie = mongoose.model('Movie'); //存数据
+
+(async() => {
     const script = r('../crawler/paC.js')
     const child = cp.fork(script, [])
     let invoked = true
@@ -21,9 +22,20 @@ const r = path => resolve(__dirname, path);
         console.log(err)
     })
 
-    child.on('message',data =>{
-        let result =  data.result
+    child.on('message', data => {
+        let result = data.result
         console.log(result)
+
+        result.forEach(async item => {
+            let movie = await Movie.findOne({
+                doubanId: item.doubanid
+            })
+            if (!movie) {
+                movie = new Movie(item)
+                await movie.save()
+            }
+        });
+
     })
 })()
 

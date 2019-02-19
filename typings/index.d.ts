@@ -2,6 +2,7 @@
 /// <reference path="globals/express-session/index.d.ts" />
 /// <reference path="globals/jquery/index.d.ts" />
 /// <reference path="globals/node/index.d.ts" />
+/// <reference path="modules/bcrypt/index.d.ts" />
 /// <reference path="modules/body-parser/index.d.ts" />
 /// <reference path="modules/connect-mongo/index.d.ts" />
 /// <reference path="modules/cookie-parser/index.d.ts" />

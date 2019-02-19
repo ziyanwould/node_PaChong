@@ -1,9 +1,22 @@
 const Koa = require('koa')
-const app = new Koa()
-const { connect } = require('../server/datadbs/init');
+const views = require('koa-views')
+const { resolve } = require('path')
+const mongoose = require('mongoose')
+const { connect, initSchemas } = require('../server/datadbs/init');
 (async() => {
     await connect()
+
+    await initSchemas()
+
+    // const Movie = mongoose.model('Movie')
+
+    // const movies = await Movie.find({})
+
+    // console.log('movies', movies)
+
+    require('../server/tasks/moves.js')
 })()
+const app = new Koa()
 app.use(async(ctx, next) => {
     ctx.body = 'Ziyanwould'
     ctx.type = 'text/html; charset=utf-8'

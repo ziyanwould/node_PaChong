@@ -10,6 +10,7 @@
 /// <reference path="modules/ejs/index.d.ts" />
 /// <reference path="modules/express-serve-static-core/index.d.ts" />
 /// <reference path="modules/express/index.d.ts" />
+/// <reference path="modules/koa-router/index.d.ts" />
 /// <reference path="modules/koa/index.d.ts" />
 /// <reference path="modules/mime/index.d.ts" />
 /// <reference path="modules/mongoose/index.d.ts" />

@@ -5,7 +5,7 @@ const _ = require('lodash')
 const glob = require('glob')
 const routerMap = new Map()
 const isArray = c => _.isArray(c) ? c : [c]
-
+//const routeMap = []
 export class Route {
     constructor(app, apiPath) {
         this.app = app
@@ -34,7 +34,7 @@ const router = conf => (target, key, descriptor) => {
 
     routerMap.set({
         target: target,
-        ...conf
+        ...target
     }, target[key])
 }
 

@@ -1,9 +1,9 @@
-//初始化整个路由的中间层
-const { Router } = require('../lib/decorator')
-const { resolve } = require('path')
+import { Route } from '../decorator/router'
+import { resolve } from 'path'
 
-export  const router = app => {
-    const apiPath = resolve(__dirname, '../routes')
-    const router = new Router(app, apiPath)
-    router.init()
+export const router = (app) => {
+  const routesPath = resolve(__dirname, '../routes')
+  const instance = new Route(app, routesPath)
+
+  instance.init()
 }

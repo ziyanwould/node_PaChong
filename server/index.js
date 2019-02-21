@@ -1,7 +1,5 @@
 const Koa = require('koa')
-const views = require('koa-views')
 const { resolve } = require('path')
-const mongoose = require('mongoose')
 const { connect, initSchemas } = require('../server/datadbs/init');
 const R = require('ramda');
 const MIDDLEWARES = ['router']

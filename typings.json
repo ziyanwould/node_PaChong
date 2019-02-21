@@ -19,6 +19,7 @@
     "mime": "registry:dt/mime#0.0.0+20160428043022",
     "mongoose": "registry:npm/mongoose#4.3.5+20160628072220",
     "multiparty": "registry:dt/multiparty#0.0.0+20161119044246",
+    "react": "registry:npm/react#15.0.1+20170104200836",
     "serve-static": "registry:dt/serve-static#1.7.1+20161128184045"
   }
 }

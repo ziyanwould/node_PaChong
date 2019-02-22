@@ -1,4 +1,4 @@
-import AC from './components/async_load'//加载动态模板
+import AC from './components/async_load'//加载动态模板 动态加载的机制
 export default[
     {
         name:'首页',

@@ -2,7 +2,6 @@ const qiniu = require('qiniu');
 const naooid = require('nanoid')
 const configs = require('./config')
 
-
 let accessKey = configs.qinniu.AK;
 let secretKey = configs.qinniu.Sk;
 let mac = new qiniu.auth.digest.Mac(accessKey, secretKey);

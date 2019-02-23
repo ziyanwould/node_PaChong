@@ -4,3 +4,6 @@
 
 #入口文件
 koa是入口文件
+
+
+babel  import Decorator async

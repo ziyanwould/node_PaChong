@@ -12,6 +12,21 @@ exports.initSchemas = () => {
         require)
 
 }
+exports.initAdmin = async()=>{
+    const User = mongoose.model('User')
+    let user = await User.findOne({
+        username:'ziyanwould'
+    })
+
+    if(!user){
+        const user = new User({
+            username:'ziyanwould',
+            email:'ziyanwould@163.com',
+            password:'yln212',
+            role:'admin'
+        })
+    }
+}
 exports.connect = () => {
     let maxConnectTime = 0;
 

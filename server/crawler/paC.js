@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer');
-const url = `https://movie.douban.com/tag/#/?sort=U&range=0,10&tags=`;
+const url =`https://movie.douban.com/tag/#/`;
 const sleep = time => new Promise(resolve => {
         setTimeout(resolve, time)
     });
@@ -12,13 +12,14 @@ const sleep = time => new Promise(resolve => {
         })
         const page = await broowser.newPage()
         await page.goto(url, {
-            waitUntil: 'networkidle2'
+            waitUntil: 'networkidle2',
+            timeout: 1000*60*1
         })
 
         await sleep(1000)
 
         await page.waitForSelector('.more')
-        for(let i=0;i<1;i++){
+        for(let i=0;i<10;i++){
             await sleep(1000)
             await page.click('.more')
         }
@@ -48,7 +49,7 @@ const sleep = time => new Promise(resolve => {
         })
         
         broowser.close()
-       // console.log(result)
+        //console.log(result)
 
        //发送数据出去
        process.send({result})

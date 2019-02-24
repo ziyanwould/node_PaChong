@@ -17,7 +17,7 @@ const { connect, initSchemas } = require('../server/datadbs/init');
     // console.log('movies', movies)
 
     //require('../server/tasks/moves.js')初步获取数据
-    // require('../server/tasks/api') 深度加工数据 数据更加详细
+    // require('../server/tasks/api2') //深度加工数据 数据更加详细
      require('../server/tasks/qiniu2.js') //爬到七牛
 
 })()

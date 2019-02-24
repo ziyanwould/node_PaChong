@@ -102,9 +102,9 @@ async function fetchMovie(item) {
         }
     }
 
-    // movies.map(async movie =>{
-    //     let movieData = await fetchMovie(movie)
-    //     movieData=JSON.parse(movieData)
-    //     console.log(movieData)
-    // })
+    movies.map(async movie =>{
+        let movieData = await fetchMovie(movie)
+        movieData=JSON.parse(movieData)
+        console.log(movieData)
+    })
 })()

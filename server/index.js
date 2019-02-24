@@ -2,7 +2,7 @@ const Koa = require('koa')
 const { resolve } = require('path')
 const { connect, initSchemas } = require('../server/datadbs/init');
 const R = require('ramda');
-const MIDDLEWARES = ['router' ,'parcel']
+const MIDDLEWARES = ['general','router', 'parcel']
 const useMiddlewares = (app)=>{
     R.map(
         R.compose(

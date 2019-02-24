@@ -114,6 +114,20 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
+var _antd = require("antd");
+
+var _lib = require("../../lib");
+
+var _reactRouterDom = require("react-router-dom");
+
+var _moment = _interopRequireDefault(require("moment"));
+
+var _default = _interopRequireDefault(require("../../layouts/default"));
+
+require("moment/locale/zh-cn");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -134,29 +148,155 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var Detail =
+var Meta = _antd.Card.Meta;
+var site = 'https://yln212.top/';
+var gridStyle = {
+  width: '25%',
+  textAlign: 'center'
+};
+var DPlayer = window.DPlayer;
+
+_moment.default.locale('zh-cn');
+
+var TabPane = _antd.Tabs.TabPane;
+
+function callback(key) {
+  console.log(key);
+}
+
+var style = {
+  cardContainer: {
+    width: 500,
+    margin: 15,
+    float: 'left'
+  },
+  mT: {
+    marginTop: 12
+  }
+};
+
+var MovieDetail =
 /*#__PURE__*/
 function (_Component) {
-  _inherits(Detail, _Component);
+  _inherits(MovieDetail, _Component);
 
-  function Detail() {
-    _classCallCheck(this, Detail);
+  function MovieDetail(props) {
+    var _this;
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Detail).apply(this, arguments));
+    _classCallCheck(this, MovieDetail);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(MovieDetail).call(this, props));
+
+    _this._getMovieDetail = function () {
+      console.log(window.__LOADING__);
+      (0, _lib.request)({
+        method: 'get',
+        url: "/movies/detail/".concat(_this.state._id)
+      }).then(function (data) {
+        var movie = data.movie;
+        var video = site + movie.videoKey;
+        var pic = site + movie.coverKey;
+
+        _this.setState({
+          movie: data.movie,
+          relativeMovies: data.relativeMovies
+        }, function () {
+          _this.player = new DPlayer({
+            container: document.getElementById('videoPlayer'),
+            screenshot: true,
+            video: {
+              url: video,
+              pic: pic,
+              thumbnails: pic
+            }
+          });
+        });
+      }); // .catch(() => {
+      //   this.props.history.goBack()
+      // })
+    };
+
+    _this.state = {
+      loading: false,
+      relativeMovies: [],
+      _id: _this.props.match.params.id,
+      movie: null
+    };
+    return _this;
   }
 
-  _createClass(Detail, [{
+  _createClass(MovieDetail, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this._getMovieDetail();
+    }
+  }, {
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, "\u8BE6\u60C5\u9875");
+      var _this$state = this.state,
+          movie = _this$state.movie,
+          relativeMovies = _this$state.relativeMovies;
+      console.log(relativeMovies);
+      if (!movie) return null;
+      return _react.default.createElement("div", {
+        className: "flex-row full"
+      }, _react.default.createElement("div", {
+        className: "page-shade"
+      }, _react.default.createElement("div", {
+        className: "video-wrapper"
+      }, _react.default.createElement("div", {
+        id: "videoPlayer",
+        src: site + movie.coverKey,
+        "data-video": site + movie.videoKey
+      })), _react.default.createElement("div", {
+        className: "video-sidebar"
+      }, _react.default.createElement(_reactRouterDom.Link, {
+        className: "homeLink",
+        to: '/'
+      }, "\u56DE\u5230\u9996\u9875"), _react.default.createElement(_antd.Tabs, {
+        defaultActiveKey: "1",
+        onChange: callback
+      }, _react.default.createElement(TabPane, {
+        tab: "\u5173\u4E8E\u672C\u7247",
+        key: "1"
+      }, _react.default.createElement("h1", null, movie.title), _react.default.createElement("dl", null, _react.default.createElement("dt", null, "\u8C46\u74E3\u8BC4\u5206\uFF1A", _react.default.createElement(_antd.Badge, {
+        count: movie.rate,
+        style: {
+          backgroundColor: '#52c41a'
+        }
+      }), " \u5206"), _react.default.createElement("dt", null, "\u7535\u5F71\u5206\u7C7B\uFF1A", movie.tags && movie.tags.join(' ')), _react.default.createElement("dt", null, "\u66F4\u65B0\u65F6\u95F4\uFF1A", (0, _moment.default)(movie.meta.createdAt).fromNow()), _react.default.createElement("dt", null, "\u5F71\u7247\u4ECB\u7ECD\uFF1A"), _react.default.createElement("dd", null, movie.summary))), _react.default.createElement(TabPane, {
+        tab: "\u540C\u7C7B\u7535\u5F71",
+        key: "2"
+      }, relativeMovies.map(function (item) {
+        return _react.default.createElement("a", {
+          key: item._id,
+          className: "media",
+          href: "/detail/".concat(item._id)
+        }, _react.default.createElement("img", {
+          width: "60",
+          className: "align-self-center mr-3",
+          src: site + item.posterKey,
+          alt: item.rawTitle
+        }), _react.default.createElement("div", {
+          className: "media-body"
+        }, _react.default.createElement("h6", {
+          className: "media-title"
+        }, item.title), _react.default.createElement("ul", {
+          className: "list-unstyled"
+        }, item.pubdate && item.pubdate.map(function (it, i) {
+          return _react.default.createElement("li", {
+            key: i
+          }, (0, _moment.default)(it.date).format('YYYY.MM'), " (", it.country, ")");
+        }))));
+      }))))));
     }
   }]);
 
-  return Detail;
+  return MovieDetail;
 }(_react.Component);
 
-exports.default = Detail;
-},{"react":"../node_modules/react/index.js"}],"../node_modules/_parcel-bundler@1.11.0@parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+exports.default = MovieDetail;
+},{"react":"../node_modules/react/index.js","antd":"../node_modules/antd/es/index.js","../../lib":"lib/index.js","react-router-dom":"../node_modules/react-router-dom/es/index.js","moment":"../node_modules/moment/moment.js","../../layouts/default":"layouts/default.js","moment/locale/zh-cn":"../node_modules/moment/locale/zh-cn.js"}],"../node_modules/_parcel-bundler@1.11.0@parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -183,7 +323,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51480" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62072" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

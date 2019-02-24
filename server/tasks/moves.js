@@ -6,7 +6,7 @@ const mongoose = require('mongoose'); //存数据
 const Movie = mongoose.model('Movie'); //存数据
 
 (async() => {
-    const script = r('../crawler/paC.js')
+    const script = r('../crawler/trailer-list.js')
     const child = cp.fork(script, [])
     let invoked = true
     child.on('err', err => {
@@ -24,13 +24,14 @@ const Movie = mongoose.model('Movie'); //存数据
 
     child.on('message', data => {
         let result = data.result
-        console.log(result)
+        console.log('result',result)
 
         result.forEach(async item => {
             let movie = await Movie.findOne({
-                doubanId: item.doubanid
+                doubanId: item.doubanId
             })
             if (!movie) {
+                console.log('item',item)
                 movie = new Movie(item)
                 await movie.save()
             }
